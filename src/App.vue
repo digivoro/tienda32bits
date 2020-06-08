@@ -1,32 +1,63 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">
+        <img
+          class="img-fluid d-inline-block"
+          height="auto"
+          width="200"
+          alt="Desafío Latam logo"
+          src="./assets/logo.png"
+        />
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <router-link
+            :to="{ name: 'inicio' }"
+            class="nav-item nav-link active"
+          >
+            Inicio <span class="sr-only">(current)</span>
+          </router-link>
+          <router-link class="nav-item nav-link" to="/busqueda">
+            Búsqueda
+          </router-link>
+          <router-link class="nav-item nav-link" to="/ventas">
+            Ventas
+          </router-link>
+          <router-link class="nav-item nav-link" to="/total">
+            Total
+          </router-link>
+        </div>
+      </div>
+    </nav>
+    <transition name="vista">
+      <router-view />
+    </transition>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+export default {};
+</script>
+
+<style scoped>
+.vista-enter-active,
+.vista-leave-active {
+  transition: opacity 0.2s;
 }
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.vista-enter,
+.vista-leave-to {
+  opacity: 0;
 }
 </style>
