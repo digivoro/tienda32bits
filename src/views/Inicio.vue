@@ -1,6 +1,7 @@
 <template>
   <div>
-    Acá va tu contenido
+    <h1>32bits</h1>
+    <h2>Juegos de PC y consolas</h2>
   </div>
 </template>
 <script>
