@@ -17,9 +17,8 @@ export default {
 </script>
 
 <style scoped>
-.vista-enter-active,
-.vista-leave-active {
-  transition: opacity 0.2s;
+.vista-enter-active {
+  transition: opacity 0.5s;
 }
 .vista-enter,
 .vista-leave-to {
