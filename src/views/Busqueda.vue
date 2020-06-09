@@ -1,17 +1,39 @@
 <template>
   <div>
     <h1 class="mb-3">Búsqueda</h1>
-    <div class="p-5 mb-3 shadow col col-12 col-md-8 col-lg-6">
-      <input
-        class="mb-3"
-        v-model="input"
-        type="text"
-        placeholder="Búscar juego por ID"
-      />
-      <h4>Cantidad de juegos: {{ cantidadJuegos }}</h4>
-      <h4>Stock total juegos: {{ stockTotal.stock }}</h4>
+    <div class="row p-5 mb-3">
+      <div class="col col-sm-6">
+        <form class="form-inline my-2 my-lg-0">
+          <input
+            v-model="input"
+            class="form-control mr-sm-2"
+            type="search"
+            placeholder="Buscar juego por ID"
+            aria-label="Search"
+          />
+        </form>
+      </div>
+      <div class="card-deck col col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title">{{ cantidadJuegos }}</h2>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Cantidad de juegos</small>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title">{{ stockTotal.stock }}</h2>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Stock total juegos</small>
+          </div>
+        </div>
+      </div>
     </div>
-    <ListadoJuegos :juegos="listaFiltrada" />
+
+    <ListadoJuegos :lista="listaFiltrada" />
   </div>
 </template>
 

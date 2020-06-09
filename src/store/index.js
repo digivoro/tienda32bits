@@ -54,10 +54,50 @@ export default new Vuex.Store({
         color: "red",
         destacado: true
       }
-    ]
+    ],
+    ventas: []
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    procesarVenta: (state, codigo) => {
+      state.juegos.forEach(juego => {
+        if (juego.codigo === codigo) {
+          juego.stock -= 1;
+        }
+      });
+    },
+    registrarVenta: (state, codigo) => {
+      let juego = state.juegos.find(juego => juego.codigo === codigo);
+      let venta = {
+        codigo: codigo,
+        nombre: juego.nombre,
+        precio: juego.precio
+      };
+      state.ventas.push(venta);
+    }
+  },
+  actions: {
+    venderJuego: async (context, codigo) => {
+      await context.dispatch("procesarVenta", codigo);
+      await context.dispatch("registrarVenta", codigo);
+      alert("Venta procesada");
+    },
+    procesarVenta: (context, codigo) => {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          context.commit("procesarVenta", codigo);
+          resolve();
+        }, 2000);
+      });
+    },
+    registrarVenta: (context, codigo) => {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          context.commit("registrarVenta", codigo);
+          resolve();
+        }, 1000);
+      });
+    }
+  },
   getters: {
     obtenerJuegoPorId: state => codigo => {
       return state.juegos.filter(juego => juego.codigo === codigo);
@@ -65,10 +105,24 @@ export default new Vuex.Store({
     cantidadJuegos: state => {
       return state.juegos.length;
     },
+    cantidadJuegosEnStock: state => {
+      return state.juegos.filter(juego => juego.stock >= 0).length;
+    },
     stockTotal: state => {
       return state.juegos.reduce((a, b) => {
         return { stock: a.stock + b.stock };
       });
+    },
+    totalVentas: ({ ventas }) => {
+      if (ventas.length >= 1) {
+        let suma = 0;
+        ventas.forEach(item => {
+          suma += item.precio;
+        });
+        return { monto: suma };
+      } else {
+        return { monto: 0 };
+      }
     }
   }
 });
